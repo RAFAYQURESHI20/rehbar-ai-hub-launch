@@ -230,23 +230,17 @@ export function Footer() {
             {/* Brand Column */}
             <div className="lg:col-span-2">
               <Link to="/" className="flex items-center gap-3 mb-6">
-                <motion.div 
+                <motion.div
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: "spring", stiffness: 300 }}
-                  className="w-16 h-16"
+                  className="w-20 h-20"
                 >
                   <img
                     src="/rehbar.jpeg"
                     alt="Rehbar AI Training Hub Logo"
-                    className="w-16 h-16 object-contain"
+                    className="w-20 h-20 object-contain"
                   />
                 </motion.div>
-                <div className="flex flex-col">
-                  <span className="font-display font-bold text-xl text-white">
-                    Rehbar AI
-                  </span>
-                  <span className="text-sm text-white/60">Training Hub</span>
-                </div>
               </Link>
               <p className="text-white/70 mb-6 max-w-sm">
                 Empowering the next generation of tech professionals with cutting-edge 

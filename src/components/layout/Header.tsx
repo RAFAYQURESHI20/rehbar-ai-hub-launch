@@ -57,7 +57,7 @@ export function Header() {
             <img
               src="/rehbar.jpeg"
               alt="Rehbar AI Training Hub Logo"
-              className="w-14 h-14 object-contain"
+              className="w-16 h-16 object-contain"
             />
             {/* Glow effect on hover */}
             <motion.div
@@ -67,20 +67,6 @@ export function Header() {
               transition={{ duration: 0.3 }}
             />
           </motion.div>
-          <div className="flex flex-col">
-            <span className={cn(
-              "font-display font-bold text-lg leading-tight transition-colors",
-              isScrolled ? "text-foreground" : "text-white"
-            )}>
-              Rehbar AI
-            </span>
-            <span className={cn(
-              "text-xs font-medium transition-colors",
-              isScrolled ? "text-muted-foreground" : "text-white/70"
-            )}>
-              Training Hub
-            </span>
-          </div>
         </Link>
 
         {/* Desktop Navigation */}
