@@ -9,7 +9,7 @@ interface PageTransitionProps {
 const pageVariants = {
   initial: {
     opacity: 0,
-    y: 20,
+    y: -20,
     filter: "blur(10px)",
   },
   enter: {
@@ -23,7 +23,7 @@ const pageVariants = {
   },
   exit: {
     opacity: 0,
-    y: -20,
+    y: 20,
     filter: "blur(10px)",
     transition: {
       duration: 0.3,
@@ -63,17 +63,9 @@ const fadeVariants = {
   },
   enter: {
     opacity: 1,
-    transition: {
-      duration: 0.5,
-      ease: "easeInOut",
-    },
   },
   exit: {
     opacity: 0,
-    transition: {
-      duration: 0.3,
-      ease: "easeInOut",
-    },
   },
 };
 

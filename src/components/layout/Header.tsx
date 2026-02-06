@@ -57,7 +57,7 @@ export function Header() {
             <img
               src="/rehbar.jpeg"
               alt="Rehbar AI Training Hub Logo"
-              className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 object-contain transition-all duration-300"
+              className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 object-contain transition-all duration-300"
             />
             {/* Glow effect on hover */}
             <motion.div

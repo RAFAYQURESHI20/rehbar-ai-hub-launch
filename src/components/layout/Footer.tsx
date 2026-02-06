@@ -238,7 +238,7 @@ export function Footer() {
                   <img
                     src="/rehbar.jpeg"
                     alt="Rehbar AI Training Hub Logo"
-                    className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 object-contain transition-all duration-300"
+                    className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 object-contain transition-all duration-300"
                   />
                 </motion.div>
               </Link>
