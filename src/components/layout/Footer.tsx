@@ -219,48 +219,48 @@ export function Footer() {
     <>
       <footer className="relative z-10 bg-slate-950 text-secondary-foreground">
         {/* Main Footer */}
-        <div className="container mx-auto px-4 py-16">
+        <div className="container mx-auto px-3 sm:px-4 lg:px-6 py-8 sm:py-12 lg:py-16 max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-12"
           >
             {/* Brand Column */}
             <div className="lg:col-span-2">
-              <Link to="/" className="flex items-center gap-3 mb-6">
+              <Link to="/" className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: "spring", stiffness: 300 }}
-                  className="w-20 h-20"
+                  className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20"
                 >
                   <img
                     src="/rehbar.jpeg"
                     alt="Rehbar AI Training Hub Logo"
-                    className="w-20 h-20 object-contain"
+                    className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 object-contain transition-all duration-300"
                   />
                 </motion.div>
               </Link>
-              <p className="text-white/70 mb-6 max-w-sm">
-                Empowering the next generation of tech professionals with cutting-edge 
+              <p className="text-white/70 mb-4 sm:mb-6 max-w-sm text-sm sm:text-base">
+                Empowering the next generation of tech professionals with cutting-edge
                 AI and IT training. Transform your career with industry-relevant skills.
               </p>
-              
+
               {/* Newsletter */}
               <div className="space-y-3">
-                <h4 className="font-semibold text-white">Subscribe to Newsletter</h4>
+                <h4 className="font-semibold text-white text-sm sm:text-base">Subscribe to Newsletter</h4>
                 <form onSubmit={handleNewsletterSubmit} className="relative">
-                  <div className="flex gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <div className="flex-1 relative">
-                      <Input 
-                        type="email" 
+                      <Input
+                        type="email"
                         placeholder="Enter your email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         disabled={isSubmitting || isSuccess}
                         className={cn(
-                          "bg-white/10 border-white/20 text-white placeholder:text-white/50 transition-all",
+                          "bg-white/10 border-white/20 text-white placeholder:text-white/50 transition-all h-10 sm:h-11",
                           isSuccess && "border-green-500/50 bg-green-500/10"
                         )}
                       />
@@ -277,12 +277,13 @@ export function Footer() {
                         )}
                       </AnimatePresence>
                     </div>
-                    <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                      <Button 
+                    <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="sm:w-auto">
+                      <Button
                         type="submit"
-                        variant="gradient" 
-                        size="icon"
+                        variant="gradient"
+                        size="sm"
                         disabled={isSubmitting || isSuccess}
+                        className="w-full sm:w-auto h-10 sm:h-11"
                       >
                         {isSubmitting ? (
                           <motion.div
@@ -372,19 +373,19 @@ export function Footer() {
           </motion.div>
 
           {/* Mobile Accordion Sections */}
-          <div className="lg:hidden mt-12">
-            <div className="grid grid-cols-2 gap-6">
-              <AccordionSection 
-                title="Courses" 
+          <div className="lg:hidden mt-8 sm:mt-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              <AccordionSection
+                title="Courses"
                 isOpen={openSections["courses"] || false}
                 onToggle={() => toggleSection("courses")}
               >
-                <ul className="space-y-3">
+                <ul className="space-y-2 sm:space-y-3">
                   {footerLinks.courses.map((link) => (
                     <li key={link.name}>
-                      <Link 
+                      <Link
                         to={link.href}
-                        className="text-white/70 hover:text-white transition-colors text-sm"
+                        className="text-white/70 hover:text-white transition-colors text-sm block py-1"
                       >
                         {link.name}
                       </Link>
@@ -393,17 +394,17 @@ export function Footer() {
                 </ul>
               </AccordionSection>
 
-              <AccordionSection 
-                title="Company" 
+              <AccordionSection
+                title="Company"
                 isOpen={openSections["company"] || false}
                 onToggle={() => toggleSection("company")}
               >
-                <ul className="space-y-3">
+                <ul className="space-y-2 sm:space-y-3">
                   {footerLinks.company.map((link) => (
                     <li key={link.name}>
-                      <Link 
+                      <Link
                         to={link.href}
-                        className="text-white/70 hover:text-white transition-colors text-sm"
+                        className="text-white/70 hover:text-white transition-colors text-sm block py-1"
                       >
                         {link.name}
                       </Link>
@@ -420,9 +421,9 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="mt-12 pt-8 border-t border-white/10"
+            className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-white/10"
           >
-            <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-12 px-2">
               {trustBadges.map((badge, index) => (
                 <motion.div
                   key={badge.label}
@@ -436,9 +437,9 @@ export function Footer() {
                     whileHover={{ scale: 1.1, rotate: 10 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <badge.icon className="w-5 h-5 text-primary" />
+                    <badge.icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                   </motion.div>
-                  <span className="text-sm">{badge.label}</span>
+                  <span className="text-xs sm:text-sm">{badge.label}</span>
                 </motion.div>
               ))}
             </div>
@@ -447,20 +448,22 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-white/10">
-          <div className="container mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-white/60 text-sm">
-              © {new Date().getFullYear()} Rehbar AI Training Hub. All rights reserved.
-            </p>
-            <div className="flex gap-6">
-              {footerLinks.legal.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  className="text-white/60 hover:text-white transition-colors text-sm"
-                >
-                  {link.name}
-                </Link>
-              ))}
+          <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 max-w-7xl">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+              <p className="text-white/60 text-xs sm:text-sm text-center sm:text-left">
+                © {new Date().getFullYear()} Rehbar AI Training Hub. All rights reserved.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3 sm:gap-6 text-xs sm:text-sm">
+                {footerLinks.legal.map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className="text-white/60 hover:text-white transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </div>

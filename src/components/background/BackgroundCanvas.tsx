@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 
 /**
  * Particle class representing a node in the neural network
@@ -23,7 +23,7 @@ class Particle {
     this.vx = (Math.random() - 0.5) * 0.4;
     this.vy = (Math.random() - 0.5) * 0.3;
     this.radius = Math.random() * 2 + 2;
-    
+
     // Colors: electric blue and cyan with higher visibility and glow
     const colors = [
       'hsla(210, 100%, 65%,',  // Electric blue - brighter
@@ -59,7 +59,7 @@ class Particle {
     );
     gradient.addColorStop(0, `${this.color}${this.opacity * 0.6})`);
     gradient.addColorStop(1, `${this.color}0)`);
-    
+
     ctx.beginPath();
     ctx.arc(this.x, this.y, glowRadius, 0, Math.PI * 2);
     ctx.fillStyle = gradient;
@@ -75,44 +75,58 @@ class Particle {
 
 /**
  * BackgroundCanvas Component
- * 
+ *
  * Creates a canvas-based neural network particle animation with:
  * - Floating nodes (particles) that drift with noticeable motion
  * - Connecting lines between nearby nodes with higher visibility
  * - Subtle pulsing glow effects
  * - Blue/cyan color scheme matching the brand
  * - Enhanced visibility and depth
+ * - Responsive particle count based on screen size
  */
 interface BackgroundCanvasProps {
   particleCount?: number;
   connectionDistance?: number;
 }
 
-export function BackgroundCanvas({ 
-  particleCount = 60,
-  connectionDistance = 180 
+export function BackgroundCanvas({
+  particleCount: initialCount = 60,
+  connectionDistance: initialDistance = 180
 }: BackgroundCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const animationFrameRef = useRef<number>(0);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  // Adaptive particle count based on screen size
+  const getParticleConfig = useCallback((width: number) => {
+    if (width < 640) {
+      return { count: 30, distance: 120 }; // Mobile
+    } else if (width < 1024) {
+      return { count: 45, distance: 150 }; // Tablet
+    } else {
+      return { count: 60, distance: 180 }; // Desktop
+    }
+  }, []);
 
   const initParticles = useCallback((width: number, height: number) => {
+    const { count } = getParticleConfig(width);
     particlesRef.current = [];
-    for (let i = 0; i < particleCount; i++) {
+    for (let i = 0; i < count; i++) {
       particlesRef.current.push(new Particle(width, height));
     }
-  }, [particleCount]);
+  }, [getParticleConfig]);
 
-  const drawConnections = useCallback((ctx: CanvasRenderingContext2D, particles: Particle[]) => {
+  const drawConnections = useCallback((ctx: CanvasRenderingContext2D, particles: Particle[], distance: number) => {
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
         const dy = particles[i].y - particles[j].y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+        const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance < connectionDistance) {
+        if (dist < distance) {
           // Higher opacity for better visibility
-          const opacity = (1 - distance / connectionDistance) * 0.5;
+          const opacity = (1 - dist / distance) * 0.5;
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
@@ -122,7 +136,7 @@ export function BackgroundCanvas({
         }
       }
     }
-  }, [connectionDistance]);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -134,6 +148,7 @@ export function BackgroundCanvas({
     const resizeCanvas = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
+      setDimensions({ width, height });
       canvas.width = width;
       canvas.height = height;
       initParticles(width, height);
@@ -150,6 +165,8 @@ export function BackgroundCanvas({
       // Clear with transparency so particles show against dark page background
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      const { distance } = getParticleConfig(canvas.width);
+
       // Update and draw particles
       particlesRef.current.forEach(particle => {
         particle.update(canvas.width, canvas.height);
@@ -157,7 +174,7 @@ export function BackgroundCanvas({
       });
 
       // Draw connections
-      drawConnections(ctx, particlesRef.current);
+      drawConnections(ctx, particlesRef.current, distance);
 
       animationFrameRef.current = requestAnimationFrame(animate);
     };
@@ -168,12 +185,12 @@ export function BackgroundCanvas({
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationFrameRef.current);
     };
-  }, [initParticles, drawConnections]);
+  }, [initParticles, drawConnections, getParticleConfig]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full"
+      className="absolute inset-0 w-full h-full block"
       aria-hidden="true"
     />
   );

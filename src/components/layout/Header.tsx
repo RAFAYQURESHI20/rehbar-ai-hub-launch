@@ -43,12 +43,12 @@ export function Header() {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-white/10 bg-slate-950",
-        isScrolled ? "backdrop-blur-xl shadow-lg py-3" : "backdrop-blur-xl py-4"
+        isScrolled ? "backdrop-blur-xl shadow-lg py-2 sm:py-3" : "backdrop-blur-xl py-3 sm:py-4"
       )}
     >
-      <div className="container mx-auto px-4 flex items-center justify-between">
+      <div className="container mx-auto px-3 sm:px-4 lg:px-6 max-w-7xl flex items-center justify-between">
         {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
+        <Link to="/" className="flex items-center gap-2 sm:gap-3 group">
           <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -57,11 +57,11 @@ export function Header() {
             <img
               src="/rehbar.jpeg"
               alt="Rehbar AI Training Hub Logo"
-              className="w-16 h-16 object-contain"
+              className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 object-contain transition-all duration-300"
             />
             {/* Glow effect on hover */}
             <motion.div
-              className="absolute inset-0 rounded-xl bg-primary/50 blur-lg"
+              className="absolute inset-0 rounded-lg sm:rounded-xl bg-primary/50 blur-lg"
               initial={{ opacity: 0 }}
               whileHover={{ opacity: 0.5 }}
               transition={{ duration: 0.3 }}
@@ -70,7 +70,7 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1 relative">
+        <nav className="hidden lg:flex items-center gap-1 xl:gap-2 relative">
           {/* Animated underline track */}
           <motion.div
             className="absolute bottom-0 h-0.5 bg-primary rounded-full pointer-events-none"
@@ -84,13 +84,13 @@ export function Header() {
               opacity: isScrolled ? 1 : 0.7,
             }}
           />
-          
+
           {navLinks.map((link) => (
             <Link
               key={link.name}
               to={link.href}
               className={cn(
-                "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 relative",
+                "px-3 xl:px-4 py-2 rounded-lg text-sm xl:text-base font-medium transition-all duration-200 relative",
                 location.pathname === link.href
                   ? isScrolled
                     ? "text-primary bg-primary/10"
@@ -115,12 +115,12 @@ export function Header() {
         </nav>
 
         {/* CTA Buttons */}
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-2 xl:gap-3">
           <Button
             variant="hero"
             size="sm"
             asChild
-            className="group"
+            className="group text-xs xl:text-sm px-3 xl:px-4"
           >
             <Link to="/contact">
               Get Started
@@ -130,7 +130,7 @@ export function Header() {
             variant={isScrolled ? "gradient" : "hero"}
             size="sm"
             asChild
-            className="group"
+            className="group text-xs xl:text-sm px-3 xl:px-4"
           >
             <Link to="/courses">
               Explore Courses
@@ -142,12 +142,13 @@ export function Header() {
         <motion.button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className={cn(
-            "lg:hidden p-2 rounded-lg transition-colors",
+            "lg:hidden p-2 rounded-lg transition-colors touch-manipulation",
             isScrolled
               ? "text-foreground hover:bg-muted"
               : "text-white hover:bg-white/10"
           )}
           whileTap={{ scale: 0.95 }}
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
         >
           <motion.div
             animate={{ rotate: isMobileMenuOpen ? 90 : 0 }}
@@ -168,8 +169,8 @@ export function Header() {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="lg:hidden bg-background/98 backdrop-blur-xl border-t border-border"
           >
-            <div className="container mx-auto px-4 py-4">
-              <nav className="flex flex-col gap-2">
+            <div className="container mx-auto px-3 sm:px-4 py-4 max-w-7xl">
+              <nav className="flex flex-col gap-1">
                 {navLinks.map((link, index) => (
                   <motion.div
                     key={link.name}
@@ -181,7 +182,7 @@ export function Header() {
                     <Link
                       to={link.href}
                       className={cn(
-                        "px-4 py-3 rounded-lg text-base font-medium transition-colors flex items-center justify-between",
+                        "px-4 py-3 sm:py-3.5 rounded-lg text-base sm:text-lg font-medium transition-colors flex items-center justify-between min-h-[48px] touch-manipulation",
                         location.pathname === link.href
                           ? "text-primary bg-primary/10"
                           : "text-foreground/70 hover:text-foreground hover:bg-muted"
@@ -202,10 +203,10 @@ export function Header() {
                 transition={{ delay: 0.2 }}
                 className="flex flex-col gap-3 mt-4 pt-4 border-t border-border"
               >
-                <Button variant="hero" asChild className="w-full">
+                <Button variant="hero" asChild className="w-full min-h-[48px]">
                   <Link to="/contact">Get Started</Link>
                 </Button>
-                <Button variant="gradient" asChild className="w-full">
+                <Button variant="gradient" asChild className="w-full min-h-[48px]">
                   <Link to="/courses">Explore Courses</Link>
                 </Button>
               </motion.div>
@@ -213,6 +214,6 @@ export function Header() {
           </motion.div>
         )}
       </AnimatePresence>
-      </header>
+    </header>
   );
 }

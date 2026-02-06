@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 
 /**
  * Tech symbol shapes that float in the background
@@ -76,16 +76,23 @@ interface FloatingElementProps {
   size: number;
   duration: number;
   delay: number;
+  isMobile: boolean;
 }
 
-function FloatingElement({ 
-  symbol, 
-  initialX, 
-  initialY, 
-  size, 
-  duration, 
-  delay 
+function FloatingElement({
+  symbol,
+  initialX,
+  initialY,
+  size,
+  duration,
+  delay,
+  isMobile
 }: FloatingElementProps) {
+  // Constrain floating range based on screen size to prevent overflow
+  const rangeMultiplier = isMobile ? 0.6 : 1;
+  const moveX = Math.random() * 20 * rangeMultiplier;
+  const moveY = Math.random() * 30 * rangeMultiplier;
+
   return (
     <motion.div
       className="absolute select-none pointer-events-none"
@@ -105,10 +112,10 @@ function FloatingElement({
         opacity: 0,
       }}
       animate={{
-        x: [0, Math.random() * 40 - 20, Math.random() * 30 - 15, 0],
-        y: [0, Math.random() * 50 - 25, Math.random() * 40 - 20, 0],
+        x: [0, moveX, moveX * 0.7, 0],
+        y: [0, moveY, moveY * 0.8, 0],
         opacity: [0, 0.5, 0.4, 0.5],
-        rotate: [0, Math.random() * 8 - 4, Math.random() * 6 - 3, 0],
+        rotate: [0, Math.random() * 4 - 2, Math.random() * 3 - 1.5, 0],
       }}
       transition={{
         duration,
@@ -126,7 +133,11 @@ function FloatingElement({
 /**
  * Geometric shape components
  */
-function GeometricShapes() {
+function GeometricShapes({ isMobile }: { isMobile: boolean }) {
+  // Scale down shapes on mobile
+  const scale = isMobile ? 0.5 : 1;
+  const padding = isMobile ? 8 : 0; // Add padding to keep shapes away from edges on mobile
+
   const shapes = [
     { type: 'circle', initialX: 10, initialY: 20, size: 60, duration: 25, delay: 0 },
     { type: 'circle', initialX: 85, initialY: 15, size: 40, duration: 30, delay: 2 },
@@ -143,9 +154,10 @@ function GeometricShapes() {
   ];
 
   const renderShape = (type: string, size: number) => {
+    const scaledSize = size * scale;
     const baseStyle: React.CSSProperties = {
-      width: size,
-      height: size,
+      width: scaledSize,
+      height: scaledSize,
       border: '1px solid hsl(210, 100%, 60%)',
       opacity: 0.35,
       position: 'absolute',
@@ -170,8 +182,8 @@ function GeometricShapes() {
         return (
           <motion.div
             style={{
-              width: size,
-              height: size * 0.866,
+              width: scaledSize,
+              height: scaledSize * 0.866,
               position: 'absolute',
               border: '1px solid hsl(210, 100%, 50%)',
               opacity: 0.12,
@@ -185,6 +197,9 @@ function GeometricShapes() {
     }
   };
 
+  // Constrain movement on mobile to prevent overflow
+  const rangeMultiplier = isMobile ? 0.6 : 1;
+
   return (
     <>
       {shapes.map((shape, index) => (
@@ -197,10 +212,10 @@ function GeometricShapes() {
           }}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{
-            x: [0, Math.random() * 60 - 30, Math.random() * 50 - 25, 0],
-            y: [0, Math.random() * 70 - 35, Math.random() * 60 - 30, 0],
+            x: [0, Math.random() * 30 * rangeMultiplier, Math.random() * 25 * rangeMultiplier, 0],
+            y: [0, Math.random() * 35 * rangeMultiplier, Math.random() * 30 * rangeMultiplier, 0],
             opacity: [0, 0.35, 0.28, 0.35],
-            rotate: [0, Math.random() * 10 - 5, Math.random() * 8 - 4, 0],
+            rotate: [0, Math.random() * 5 - 2.5, Math.random() * 4 - 2, 0],
             scale: [1, 1.03, 0.97, 1],
           }}
           transition={{
@@ -220,7 +235,7 @@ function GeometricShapes() {
 
 /**
  * FloatingElements Component
- * 
+ *
  * Uses Framer Motion to create floating tech symbols and geometric shapes
  * that drift slowly across the background. These elements:
  * - Move with noticeable but still calm animations
@@ -228,46 +243,71 @@ function GeometricShapes() {
  * - Use tech-related symbols to reinforce the AI/Training theme
  * - Include geometric shapes for visual variety
  * - Enhanced density and richness
+ * - Responsive sizing and constrained movement for all screen sizes
  */
 export function FloatingElements() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [symbolCount, setSymbolCount] = useState(25);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width < 640);
+      // Reduce symbol count on smaller screens
+      setSymbolCount(width < 640 ? 15 : width < 1024 ? 20 : 25);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Generate random floating symbols
   const generateSymbols = (count: number) => {
     const symbols: ReactNode[] = [];
     const usedIndices = new Set<number>();
-    
+
     for (let i = 0; i < count; i++) {
       let symbolIndex: number;
       do {
         symbolIndex = Math.floor(Math.random() * techSymbols.length);
       } while (usedIndices.has(symbolIndex) && usedIndices.size < techSymbols.length);
-      
+
       usedIndices.add(symbolIndex);
-      
+
+      // Scale font size based on screen
+      const baseSize = isMobile ? 10 : 12;
+      const sizeRange = isMobile ? 8 : 16;
+
       symbols.push(
         <FloatingElement
           key={`symbol-${i}`}
           symbol={techSymbols[symbolIndex]}
           initialX={Math.random() * 100}
           initialY={Math.random() * 100}
-          size={Math.random() * 16 + 12}
+          size={Math.random() * sizeRange + baseSize}
           duration={Math.random() * 25 + 35}
           delay={Math.random() * 5}
+          isMobile={isMobile}
         />
       );
     }
-    
+
     return symbols;
   };
 
-  const symbols = generateSymbols(25);
+  const symbols = generateSymbols(symbolCount);
 
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {/* Tech symbols */}
-      {symbols}
-      
-      {/* Geometric shapes */}
-      <GeometricShapes />
+      {/* Safe area padding container */}
+      <div className="absolute inset-0 p-4 sm:p-8 lg:p-12">
+        {/* Tech symbols */}
+        {symbols}
+
+        {/* Geometric shapes */}
+        <GeometricShapes isMobile={isMobile} />
+      </div>
     </div>
   );
 }
