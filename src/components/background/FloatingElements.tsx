@@ -95,7 +95,7 @@ function FloatingElement({
         fontSize: `${size}px`,
         fontFamily: 'monospace',
         color: 'hsl(210, 100%, 60%)',
-        opacity: 0.25,
+        opacity: 0.5,
         fontWeight: 300,
         whiteSpace: 'nowrap',
       }}
@@ -107,7 +107,7 @@ function FloatingElement({
       animate={{
         x: [0, Math.random() * 40 - 20, Math.random() * 30 - 15, 0],
         y: [0, Math.random() * 50 - 25, Math.random() * 40 - 20, 0],
-        opacity: [0, 0.25, 0.2, 0.25],
+        opacity: [0, 0.5, 0.4, 0.5],
         rotate: [0, Math.random() * 8 - 4, Math.random() * 6 - 3, 0],
       }}
       transition={{
@@ -147,7 +147,7 @@ function GeometricShapes() {
       width: size,
       height: size,
       border: '1px solid hsl(210, 100%, 60%)',
-      opacity: 0.18,
+      opacity: 0.35,
       position: 'absolute',
     };
 
@@ -199,7 +199,7 @@ function GeometricShapes() {
           animate={{
             x: [0, Math.random() * 60 - 30, Math.random() * 50 - 25, 0],
             y: [0, Math.random() * 70 - 35, Math.random() * 60 - 30, 0],
-            opacity: [0, 0.18, 0.12, 0.18],
+            opacity: [0, 0.35, 0.28, 0.35],
             rotate: [0, Math.random() * 10 - 5, Math.random() * 8 - 4, 0],
             scale: [1, 1.03, 0.97, 1],
           }}

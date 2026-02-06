@@ -124,9 +124,9 @@ export function WhyChooseUs() {
   const inView = useInView(ref);
 
   return (
-    <section ref={ref} className="py-12 bg-slate-900 relative overflow-hidden">
-      {/* Dark gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+    <section ref={ref} className="py-12 bg-transparent relative overflow-hidden">
+      {/* Transparent background to show animation */}
+      <div className="absolute inset-0 bg-transparent" />
       <div className="absolute inset-0 grid-pattern opacity-5" />
       
       <motion.div

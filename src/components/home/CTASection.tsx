@@ -32,8 +32,8 @@ export function CTASection() {
 
   return (
     <section ref={ref} className="py-12 relative overflow-hidden">
-      {/* Dark gradient background for better text visibility */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+      {/* Transparent background to show animation */}
+      <div className="absolute inset-0 bg-transparent" />
       <div className="absolute inset-0 grid-pattern opacity-10" />
       
       {/* Animated background orbs */}

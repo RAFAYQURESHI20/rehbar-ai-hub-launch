@@ -15,7 +15,7 @@ function UrgentInquiriesBanner() {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-gradient-to-r from-blue-600/90 via-cyan-500/90 to-blue-600/90 backdrop-blur-sm border-b border-white/10"
+      className="bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-cyan-500/20 backdrop-blur-sm border-b border-white/10"
     >
       <div className="container mx-auto px-4 py-3">
         <Link

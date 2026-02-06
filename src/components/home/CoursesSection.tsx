@@ -127,7 +127,7 @@ export function CoursesSection() {
   const isInView = useInView(ref);
 
   return (
-    <section ref={ref} className="py-16 bg-background relative overflow-hidden">
+    <section ref={ref} className="py-16 bg-transparent relative overflow-hidden">
       <div className="absolute inset-0 dot-pattern opacity-50" />
       
       <motion.div

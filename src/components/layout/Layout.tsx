@@ -12,7 +12,7 @@ export function Layout({ children }: LayoutProps) {
     <div className="min-h-screen flex flex-col relative">
       <Background />
       <Header />
-      <main className="flex-1 relative">{children}</main>
+      <main className="flex-1 relative bg-transparent">{children}</main>
       <Footer />
     </div>
   );

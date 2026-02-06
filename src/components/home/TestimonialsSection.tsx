@@ -68,7 +68,7 @@ export function TestimonialsSection() {
   const inView = useInView(ref);
 
   return (
-    <section ref={ref} className="py-12 bg-background relative overflow-hidden">
+    <section ref={ref} className="py-12 bg-transparent relative overflow-hidden">
       <div className="absolute inset-0 dot-pattern opacity-30" />
       
       <div className="container mx-auto px-4 relative z-10">

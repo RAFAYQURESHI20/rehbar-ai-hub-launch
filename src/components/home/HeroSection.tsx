@@ -101,8 +101,8 @@ function MagneticCard({ children, className = "" }: { children: React.ReactNode;
 export function HeroSection() {
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-20 md:pt-24">
-      {/* Black background for better text visibility */}
-      <div className="absolute inset-0 bg-black" />
+      {/* Transparent background to show animation */}
+      <div className="absolute inset-0 bg-transparent" />
       
       {/* Animated background elements */}
       <div className="absolute inset-0 grid-pattern opacity-20" />

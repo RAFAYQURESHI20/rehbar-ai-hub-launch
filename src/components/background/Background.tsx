@@ -56,7 +56,7 @@ export function Background() {
       
       {/* Subtle gradient overlay for depth and fade-off at bottom */}
       <div
-        className="absolute inset-0 opacity-40"
+        className="absolute inset-0 opacity-15"
         style={{
           background: `
             radial-gradient(ellipse at 20% 20%, #000000 0%, transparent 50%),
