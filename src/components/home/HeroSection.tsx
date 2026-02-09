@@ -151,24 +151,158 @@ export function HeroSection() {
 
       <div className="container mx-auto px-4 py-20 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Badge with stagger */}
-          <TextReveal delay={0} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-500/20 via-blue-500/10 to-cyan-500/20 backdrop-blur-sm border border-blue-500/30 mb-6">
-            <motion.span
-              className="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.6)]"
-              animate={{ 
-                scale: [1, 1.2, 1],
-                opacity: [0.8, 1, 0.8],
-                boxShadow: [
-                  "0 0 8px rgba(34, 211, 238, 0.6)",
-                  "0 0 12px rgba(34, 211, 238, 0.8)",
-                  "0 0 8px rgba(34, 211, 238, 0.6)"
-                ]
-              }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <span className="text-blue-200 text-sm font-medium">
-              Admissions Open for 2025 Batch
-            </span>
+          {/* Enhanced Admissions Badge with Theme-Consistent Animations */}
+          <TextReveal delay={0} className="relative inline-flex items-center justify-center mb-8">
+            {/* Animated Rotating Border Gradient - Using Theme Colors */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#00d4ff] via-[#00e5ff] from-[#00d4ff] via-[#00e5ff] to-[#00d4ff] animate-[spin_4s_linear_infinite]" style={{ padding: '2px' }}>
+              <div className="w-full h-full rounded-full bg-[hsl(222,47%,8%)]" />
+            </div>
+            
+            {/* Main Badge Content */}
+            <div className="relative inline-flex items-center gap-3 px-6 py-3 rounded-full bg-[hsl(222,47%,12%)]/90 backdrop-blur-xl border border-white/10 shadow-[0_0_30px_rgba(0,212,255,0.3)]">
+              {/* Enhanced Pulsing Glow Orb - Theme Cyan */}
+              <motion.div
+                className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-teal-500/20"
+                animate={{
+                  opacity: [0.3, 0.6, 0.3],
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              />
+              
+              {/* Animated Core Light */}
+              <motion.div
+                className="relative flex items-center gap-2 z-10"
+              >
+                {/* Outer Spinning Ring - Theme Gradients */}
+                <motion.div
+                  className="absolute inset-0 rounded-full border-2 border-gradient-to-r from-cyan-400 via-blue-500 to-teal-400"
+                  style={{ borderRadius: '50%' }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                />
+                
+                {/* Central Glowing Dot with Multiple Effects */}
+                <motion.div
+                  className="relative w-4 h-4"
+                  animate={{ scale: [1, 1.15, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  {/* Core Dot - Theme Cyan Primary */}
+                  <span className="absolute inset-0 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(0,212,255,0.8),0_0_20px_rgba(0,212,255,0.5),0_0_30px_rgba(0,212,255,0.3)]" />
+                  
+                  {/* Outer Glow Rings - Theme Colors */}
+                  <motion.span
+                    className="absolute inset-0 rounded-full border border-cyan-400"
+                    animate={{ 
+                      scale: [1, 2],
+                      opacity: [0.8, 0],
+                    }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
+                  <motion.span
+                    className="absolute inset-0 rounded-full border border-cyan-400/50"
+                    animate={{ 
+                      scale: [1, 2.5],
+                      opacity: [0.5, 0],
+                    }}
+                    transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
+                  />
+                </motion.div>
+                
+                {/* Animated Text */}
+                <span className="relative text-sm font-semibold">
+                  <motion.span
+                    className="bg-gradient-to-r from-cyan-400 via-blue-400 to-teal-400 bg-clip-text text-transparent"
+                    animate={{
+                      backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                    }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                    style={{ backgroundSize: "200% auto" }}
+                  >
+                    Admissions Open for
+                  </motion.span>{" "}
+                  <motion.span
+                    className="text-white font-bold"
+                    animate={{
+                      textShadow: [
+                        "0 0 10px rgba(255,255,255,0.3)",
+                        "0 0 20px rgba(0,212,255,0.8)",
+                        "0 0 30px rgba(0,212,255,0.5)",
+                        "0 0 20px rgba(255,255,255,0.3)",
+                        "0 0 10px rgba(255,255,255,0.3)"
+                      ],
+                    }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                  >
+                    2026
+                  </motion.span>{" "}
+                  <motion.span
+                    className="text-cyan-300"
+                    animate={{ opacity: [0.7, 1, 0.7] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    Batch
+                  </motion.span>
+                </span>
+              </motion.div>
+              
+              {/* Floating Sparkles Around Badge - Theme Cyan */}
+              {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
+                <motion.div
+                  key={angle}
+                  className="absolute w-1.5 h-1.5"
+                  style={{
+                    top: '50%',
+                    left: '50%',
+                    transform: `rotate(${angle}deg) translateX(60px) rotate(-${angle}deg)`,
+                  }}
+                >
+                  <motion.div
+                    className="w-full h-full rounded-full bg-cyan-400"
+                    animate={{
+                      opacity: [0, 1, 0],
+                      scale: [0.5, 1, 0.5],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      delay: angle * 0.02,
+                      ease: "easeInOut",
+                    }}
+                  />
+                </motion.div>
+              ))}
+              
+              {/* Corner Sparkles - Theme Colors (Cyan, Blue, Teal) */}
+              {[
+                { top: -5, right: 10, color: "bg-cyan-400" },
+                { bottom: -5, left: 10, color: "bg-blue-400" },
+                { top: 5, left: -5, color: "bg-blue-500" },
+                { bottom: 5, right: -5, color: "bg-teal-400" },
+              ].map((pos, i) => (
+                <motion.div
+                  key={i}
+                  className={`absolute w-1 h-1 rounded-full ${pos.color}`}
+                  style={{ ...pos }}
+                  animate={{
+                    opacity: [0, 1, 0],
+                    scale: [0.5, 1.2, 0.5],
+                    boxShadow: [
+                      `0 0 5px rgba(0,212,255,0.5)`,
+                      `0 0 10px rgba(0,212,255,0.8)`,
+                      `0 0 5px rgba(0,212,255,0.5)`
+                    ]
+                  }}
+                  transition={{
+                    duration: 1.5 + i * 0.2,
+                    repeat: Infinity,
+                    delay: i * 0.3,
+                    ease: "easeInOut",
+                  }}
+                />
+              ))}
+            </div>
           </TextReveal>
 
           {/* Heading with word reveal */}
