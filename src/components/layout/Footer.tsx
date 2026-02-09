@@ -54,7 +54,7 @@ const socialLinks = [
   { icon: Facebook, href: "https://facebook.com/rehbarai", label: "Facebook" },
   { icon: Twitter, href: "https://twitter.com/rehbarai", label: "Twitter" },
   { icon: Linkedin, href: "https://linkedin.com/company/rehbarai", label: "LinkedIn" },
-  { icon: Instagram, href: "https://instagram.com/rehbarai", label: "Instagram" },
+  { icon: Instagram, href: "https://www.instagram.com/rehbarai?igsh=MTBiaHlkMTM1NmM3cQ%3D%3D", label: "Instagram" },
   { icon: Youtube, href: "https://youtube.com/@rehbarai", label: "YouTube" },
 ];
 
@@ -334,20 +334,20 @@ export function Footer() {
                 <li className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span className="text-white/70 text-sm">
-                    123 Tech Street, Innovation District<br />
-                    Karachi, Pakistan
+                    DHA Phase 2, House No. 245<br />
+                    Islamabad, Pakistan
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-primary shrink-0" />
-                  <a href="tel:+923001234567" className="text-white/70 hover:text-white transition-colors text-sm">
-                    +92 300 123 4567
+                  <a href="https://wa.me/923045759899" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors text-sm">
+                    0304 5759899 (WhatsApp)
                   </a>
                 </li>
                 <li className="flex items-center gap-3">
                   <Mail className="w-5 h-5 text-primary shrink-0" />
-                  <a href="mailto:info@rehbarai.com" className="text-white/70 hover:text-white transition-colors text-sm">
-                    info@rehbarai.com
+                  <a href="mailto:rehbaraitraininghub@gmail.com" className="text-white/70 hover:text-white transition-colors text-sm">
+                    rehbaraitraininghub@gmail.com
                   </a>
                 </li>
               </ul>

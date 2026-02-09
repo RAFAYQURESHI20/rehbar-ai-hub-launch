@@ -22,18 +22,22 @@ import { useToast } from "@/hooks/use-toast";
 const contactInfo = [
   {
     icon: Phone,
-    title: "Call Us",
-    details: ["+92 300 123 4567", "+92 21 1234567"],
+    title: "WhatsApp Support",
+    details: ["0304 5759899"],
+    isWhatsApp: true,
+    link: "https://wa.me/923045759899",
   },
   {
     icon: Mail,
     title: "Email Us",
-    details: ["info@rehbarai.com", "admissions@rehbarai.com"],
+    details: ["rehbaraitraininghub@gmail.com"],
+    isEmail: true,
+    link: "mailto:rehbaraitraininghub@gmail.com",
   },
   {
     icon: MapPin,
     title: "Visit Us",
-    details: ["123 Tech Street", "Innovation District, Karachi"],
+    details: ["DHA Phase 2, House No. 245", "Islamabad, Pakistan"],
   },
   {
     icon: Clock,
@@ -127,7 +131,7 @@ function ContactInfoCard({
   item: typeof contactInfo[0];
   index: number;
 }) {
-  return (
+  const content = (
     <motion.div
       initial={{ opacity: 0, x: -30 }}
       whileInView={{ opacity: 1, x: 0 }}
@@ -159,6 +163,22 @@ function ContactInfoCard({
       </div>
     </motion.div>
   );
+
+  // If item has a link, wrap content in an anchor tag
+  if (item.link) {
+    return (
+      <a
+        href={item.link}
+        target={item.isWhatsApp || item.isEmail ? "_blank" : "_self"}
+        rel="noopener noreferrer"
+        className="block"
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return content;
 }
 
 // CTA Card Component
@@ -409,10 +429,10 @@ const Contact = () => {
 
               {/* WhatsApp Button */}
               <motion.a
-                href="https://wa.me/923001234567"
+                href="https://wa.me/923045759899"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-8 inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-colors"
+                className="mt-8 inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold hover:shadow-lg hover:shadow-blue-500/30 transition-all"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -421,7 +441,7 @@ const Contact = () => {
                 whileTap={{ scale: 0.98 }}
               >
                 <MessageCircle className="w-5 h-5" />
-                Chat on WhatsApp
+                WhatsApp Support
               </motion.a>
             </motion.div>
 
@@ -528,8 +548,10 @@ const Contact = () => {
       </section>
 
       {/* Map Section */}
-      <section className="py-20 bg-muted">
-        <div className="container mx-auto px-4">
+      <section className="py-20 bg-gradient-to-b from-background via-slate-900 to-background relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0 grid-pattern opacity-10" />
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -541,7 +563,7 @@ const Contact = () => {
               Find Us
             </h2>
             <p className="text-muted-foreground">
-              Visit our training center in the heart of Karachi
+              Visit our training center in DHA Phase 2, Islamabad
             </p>
           </motion.div>
 
@@ -553,14 +575,14 @@ const Contact = () => {
             className="rounded-2xl overflow-hidden border border-border shadow-lg"
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.3454567308917!2d67.0707!3d24.8607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDUxJzM4LjUiTiA2N8KwMDQnMTQuNSJF!5e0!3m2!1sen!2s!4v1620000000000!5m2!1sen!2s"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3321.945823456789!3d73.0567!2d33.3325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDMzJzM4LjUiTiA3M8KwMDMnMjcuNCJF!5e0!3m2!1sen!2s!4v1620000000000!5m2!1sen!2s"
               width="100%"
               height="450"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Rehbar AI Training Hub Location"
+              title="Rehbar AI Training Hub Location - DHA Phase 2 Islamabad"
             />
           </motion.div>
         </div>

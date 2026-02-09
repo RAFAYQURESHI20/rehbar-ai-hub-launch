@@ -309,8 +309,9 @@ const ApplyInstructor = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 bg-muted/50">
-        <div className="container mx-auto px-4">
+      <section className="py-12 bg-gradient-to-b from-background via-slate-900 to-background relative overflow-hidden">
+        <div className="absolute inset-0 grid-pattern opacity-10" />
+        <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
             {stats.map((stat, index) => (
               <StatCard key={stat.label} item={stat} index={index} />

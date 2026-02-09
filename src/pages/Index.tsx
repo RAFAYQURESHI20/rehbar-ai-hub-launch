@@ -3,10 +3,13 @@ import { motion } from "framer-motion";
 import { ArrowRight, Phone } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { HeroSection } from "@/components/home/HeroSection";
+import { OnlineTrainingSection } from "@/components/home/OnlineTrainingSection";
 import { CoursesSection } from "@/components/home/CoursesSection";
+import { InstructorsSection } from "@/components/home/InstructorsSection";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { CTASection } from "@/components/home/CTASection";
+import PartnerSection from "@/components/home/PartnerSection";
 
 // Urgent Inquiry Headline Component
 function UrgentInquiriesBanner() {
@@ -49,8 +52,11 @@ const Index = () => {
   return (
     <Layout>
       <HeroSection />
+      <OnlineTrainingSection />
       <UrgentInquiriesBanner />
       <CoursesSection />
+      <PartnerSection />
+      <InstructorsSection />
       <WhyChooseUs />
       <TestimonialsSection />
       <CTASection />

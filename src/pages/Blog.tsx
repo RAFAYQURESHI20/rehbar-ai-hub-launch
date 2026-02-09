@@ -201,8 +201,9 @@ const Blog = () => {
       </section>
 
       {/* Categories */}
-      <section className="py-12 bg-muted">
-        <div className="container mx-auto px-4">
+      <section className="py-12 bg-gradient-to-b from-background via-slate-900 to-background relative overflow-hidden">
+        <div className="absolute inset-0 grid-pattern opacity-10" />
+        <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-wrap gap-3 justify-center">
             {categories.map((category, index) => (
               <motion.button

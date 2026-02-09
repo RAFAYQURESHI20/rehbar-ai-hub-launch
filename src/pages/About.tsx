@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { 
   Target, 
@@ -9,8 +10,15 @@ import {
   BookOpen,
   Lightbulb,
   Rocket,
-  CheckCircle2
+  CheckCircle2,
+  Linkedin,
+  Twitter,
+  Github,
+  Mail,
+  GraduationCap
 } from "lucide-react";
+import { instructors } from "@/data/instructors";
+import { Button } from "@/components/ui/button";
 
 const values = [
   {
@@ -116,50 +124,140 @@ const About = () => {
         </div>
       </section>
 
-      {/* Founder Message */}
-      <section className="py-20 bg-muted">
-        <div className="container mx-auto px-4">
+      {/* Instructors Message */}
+      <section className="py-20 bg-gradient-to-b from-background via-slate-900 to-background relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0 grid-pattern opacity-10" />
+        <motion.div
+          className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-primary/10 blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{ duration: 8, repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 left-1/4 w-80 h-80 rounded-full bg-cyan-500/5 blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{ duration: 8, repeat: Infinity, delay: 1 }}
+        />
+
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto"
+            className="text-center mb-12"
           >
-            <div className="bg-card rounded-3xl border border-border p-8 md:p-12">
-              <div className="grid md:grid-cols-3 gap-8 items-center">
-                <div className="md:col-span-1">
-                  <div className="w-48 h-48 mx-auto rounded-2xl bg-gradient-to-br from-primary to-accent overflow-hidden">
-                    <img 
-                      src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop&crop=face" 
-                      alt="Founder"
-                      className="w-full h-full object-cover mix-blend-overlay opacity-90"
-                    />
-                  </div>
-                </div>
-                <div className="md:col-span-2">
-                  <span className="text-primary font-medium text-sm">Message from Founder</span>
-                  <h2 className="font-display text-2xl font-bold text-foreground mt-2 mb-4">
-                    "Education is the passport to the future"
-                  </h2>
-                  <p className="text-muted-foreground mb-4">
-                    When I started Rehbar AI Training Hub, I had one goal: to bridge the gap 
-                    between traditional education and industry requirements. Today, I'm proud 
-                    to see our graduates working at top companies worldwide.
-                  </p>
-                  <p className="text-muted-foreground">
-                    Our commitment to practical, hands-on learning sets us apart. Every course 
-                    is designed with real-world applications in mind, ensuring our students 
-                    are not just certified but truly capable.
-                  </p>
-                  <div className="mt-6">
-                    <p className="font-semibold text-foreground">Dr. Hassan Ahmed</p>
-                    <p className="text-sm text-muted-foreground">Founder & CEO</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+              Meet Our Team
+            </span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
+              Messages from Our Instructors
+            </h2>
           </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {instructors.map((instructor, index) => (
+              <motion.div
+                key={instructor.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                className="bg-card/80 backdrop-blur-sm rounded-3xl border border-border p-8 hover:shadow-lg transition-shadow"
+              >
+                <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
+                  <div className={`w-32 h-32 rounded-2xl bg-gradient-to-br ${instructor.gradient} flex items-center justify-center shrink-0`}>
+                    <span className="text-4xl font-bold text-white">
+                      {instructor.name.split(' ').map(n => n[0]).join('')}
+                    </span>
+                  </div>
+                  <div className="flex-1 text-center md:text-left">
+                    <h3 className="font-display text-xl font-bold text-foreground mb-1">
+                      {instructor.name}
+                    </h3>
+                    <p className="text-primary font-medium text-sm mb-3">
+                      {instructor.title}
+                    </p>
+                    <p className="text-muted-foreground text-sm mb-4">
+                      {instructor.description}
+                    </p>
+                    
+                    {/* Student Message - Encouragement to Join */}
+                    <div className="bg-gradient-to-r from-primary/10 to-cyan-500/10 rounded-xl p-4 mb-4 border-l-4 border-primary">
+                      <div className="flex items-center gap-2 mb-2">
+                        <GraduationCap className="w-4 h-4 text-primary" />
+                        <span className="text-xs font-semibold text-primary uppercase tracking-wide">
+                          Message for Students
+                        </span>
+                      </div>
+                      <p className="text-sm text-foreground italic">
+                        "{instructor.studentMessage}"
+                      </p>
+                    </div>
+
+                    {/* CTA Button */}
+                    <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                      <Button variant="gradient" size="sm" asChild>
+                        <Link to="/courses">
+                          Join Our Training Hub
+                        </Link>
+                      </Button>
+                    </motion.div>
+                    
+                    {/* Social Links */}
+                    <div className="flex justify-center md:justify-start gap-3 mt-4">
+                      {instructor.socials.linkedin && (
+                        <a
+                          href={instructor.socials.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
+                        >
+                          <Linkedin className="w-4 h-4" />
+                        </a>
+                      )}
+                      {instructor.socials.twitter && (
+                        <a
+                          href={instructor.socials.twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
+                        >
+                          <Twitter className="w-4 h-4" />
+                        </a>
+                      )}
+                      {instructor.socials.github && (
+                        <a
+                          href={instructor.socials.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
+                        >
+                          <Github className="w-4 h-4" />
+                        </a>
+                      )}
+                      {instructor.socials.email && (
+                        <a
+                          href={instructor.socials.email}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
+                        >
+                          <Mail className="w-4 h-4" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
